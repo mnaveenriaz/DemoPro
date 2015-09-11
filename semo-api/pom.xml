@@ -6,16 +6,25 @@
 	<version>0.0.1</version>
 	<name>Server Monitoring</name>
 
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
 	<parent>
-		<groupId>org.springframework.boot></groupId>
-		<artifactId>spring-boot-start-parent</artifactId>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.2.5.RELEASE</version>
 	</parent>
-
-
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok-maven-plugin</artifactId>
+			<version>1.16.6.0</version>
+		</dependency>
+	</dependencies>
 
 </project>
