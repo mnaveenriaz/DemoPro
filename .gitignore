@@ -1,0 +1,12 @@
+
+semo-api/.classpath
+
+semo-api/.project
+
+*.prefs
+
+*.MF
+
+*.properties
+
+semo-api/target/*
