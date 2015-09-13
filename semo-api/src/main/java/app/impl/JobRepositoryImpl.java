@@ -6,9 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapreduce.MapReduceOptions;
 
+import app.custom.JobRepositoryCustom;
 import app.model.ValueObject;
-import app.repository.JobRepositoryCustom;
 
+/**
+ *
+ * @author mnaveenriaz
+ *
+ */
 public class JobRepositoryImpl implements JobRepositoryCustom {
 	@Autowired
 	private MongoTemplate	mongoTemplate;
@@ -16,7 +21,6 @@ public class JobRepositoryImpl implements JobRepositoryCustom {
 
 	@Override
 	public Iterable<ValueObject> runMapReduce(String map, String reduce) {
-
 		return mongoTemplate.mapReduce(collection, map, reduce, new MapReduceOptions().outputTypeInline(),
 				ValueObject.class);
 	}
@@ -24,7 +28,6 @@ public class JobRepositoryImpl implements JobRepositoryCustom {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<String> getDistinctKeys(String key) {
-
 		return mongoTemplate.getCollection(collection).distinct(key);
 	}
 

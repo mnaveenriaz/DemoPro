@@ -16,14 +16,18 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.mapreduce.MapReduceOptions;
 import org.springframework.data.mongodb.core.query.Criteria;
 
+import app.custom.LogRepositoryCustom;
 import app.model.Log;
 import app.model.ValueObject;
-import app.repository.LogRepositoryCustom;
 
+/**
+ *
+ * @author mnaveenriaz
+ *
+ */
 public class LogRepositoryImpl implements LogRepositoryCustom {
 	@Autowired
 	private MongoTemplate	mongoTemplate;
-
 	private final String	collection	= "logs";
 
 	@Override
@@ -37,22 +41,31 @@ public class LogRepositoryImpl implements LogRepositoryCustom {
 		final Aggregation aggregation = newAggregation(match(Criteria.where("status").is(status)),
 				group("odate").count().as("value").addToSet("odate").as("name"), unwind("name"),
 				project("value").and("name").previousOperation(), sort(Sort.Direction.ASC, "name"));
-		final List<ValueObject> statsList = mongoTemplate.aggregate(aggregation, Log.class, ValueObject.class)
-				.getMappedResults();
-		return statsList;
+		return mongoTemplate.aggregate(aggregation, Log.class, ValueObject.class).getMappedResults();
 	}
 
 	@Override
 	public List<ValueObject> getServerStatsByOdateAndStatus(String odate, String status) {
-		// List<Log> logList = mongoTemplate.find(new
-		// Query(Criteria.where("odate").is(odate).is(odate).and("status").is(status)),
-		// Log.class);
 		final Aggregation aggregation = newAggregation(match(Criteria.where("odate").is(odate).and("status")),
-				group("server").count().as("count"), project("count").and("server").previousOperation(),
+				group("server").count().as("value"), project("value").and("server").previousOperation(),
 				sort(Sort.Direction.ASC, "server"));
-		final List<ValueObject> statsList = mongoTemplate.aggregate(aggregation, Log.class, ValueObject.class)
-				.getMappedResults();
-		return statsList;
+		return mongoTemplate.aggregate(aggregation, Log.class, ValueObject.class).getMappedResults();
+	}
+
+	@Override
+	public List<ValueObject> getGroupStatsByOdateAndStatus(String odate, String status) {
+		final Aggregation aggregation = newAggregation(match(Criteria.where("group").is(odate).and("status")),
+				group("server").count().as("value"), project("value").and("server").previousOperation(),
+				sort(Sort.Direction.ASC, "server"));
+		return mongoTemplate.aggregate(aggregation, Log.class, ValueObject.class).getMappedResults();
+	}
+
+	@Override
+	public List<ValueObject> getApplicationStatsByOdateAndStatus(String odate, String status) {
+		final Aggregation aggregation = newAggregation(match(Criteria.where("application").is(odate).and("status")),
+				group("server").count().as("value"), project("value").and("server").previousOperation(),
+				sort(Sort.Direction.ASC, "server"));
+		return mongoTemplate.aggregate(aggregation, Log.class, ValueObject.class).getMappedResults();
 	}
 
 	@Override

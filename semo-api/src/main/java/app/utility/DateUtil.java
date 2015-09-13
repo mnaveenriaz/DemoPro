@@ -4,6 +4,11 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+/**
+ *
+ * @author mnaveenriaz
+ *
+ */
 public class DateUtil {
 	private static final String				DATETIME_PATTERN	= "yyyy/MM/dd HH:mm:ss";
 	private static final DateTimeFormatter	DATETIME_FORMATTER	= DateTimeFormat.forPattern(DATETIME_PATTERN);
@@ -15,9 +20,7 @@ public class DateUtil {
 	private static final DateTimeFormatter	DATESTR_FORMATTER	= DateTimeFormat.forPattern(DATESTR_PATTERN);
 
 	public static String format(DateTime date) {
-		if (date == null) return null;
-		else return DATETIME_FORMATTER.print(date);
-
+		return date == null ? DATETIME_FORMATTER.print(date) : null;
 	}
 
 	public static DateTime parse(String dateString) {
@@ -25,19 +28,15 @@ public class DateUtil {
 	}
 
 	public static boolean validDate(String dateString) {
-
 		return DateUtil.parse(dateString) != null;
 	}
 
 	public static String formatOdateString(String date) {
-		if (date == null) return null;
-		else return DATESTR_FORMATTER.print(DATE_FORMATTER.parseDateTime(date));
+		return date == null ? DATESTR_FORMATTER.print(DATE_FORMATTER.parseDateTime(date)) : null;
 	}
 
 	public static String formatOdate(DateTime date) {
-		if (date == null) return null;
-		else return DATESTR_FORMATTER.print(date);
-
+		return date == null ? DATESTR_FORMATTER.print(date) : null;
 	}
 
 	public static DateTime odateParse(String dateString) {

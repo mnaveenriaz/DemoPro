@@ -5,9 +5,15 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import app.custom.LogRepositoryCustom;
 import app.model.Log;
 
-//@Repository
+/**
+ *
+ * @author mnaveenriaz
+ *
+ */
+// @Repository
 public interface LogRepository extends MongoRepository<Log, String>, LogRepositoryCustom {
 	@Query("{'jobName' :?0}")
 	public List<Log> searchByJobName(String jobName);
@@ -59,5 +65,4 @@ public interface LogRepository extends MongoRepository<Log, String>, LogReposito
 
 	@Query("{'odate' :?0,'status':?1 }")
 	public List<Log> searchByOdateAndStatus(String odate, String status);
-
 }

@@ -5,9 +5,15 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import app.custom.JobRepositoryCustom;
 import app.model.Job;
 
-//@Repository
+/**
+ *
+ * @author mnaveenriaz
+ *
+ */
+// @Repository
 public interface JobRepository extends MongoRepository<Job, String>, JobRepositoryCustom {
 	@Query("{'tableID' :?0}")
 	public List<Job> searchByTableID(String tableID);
